@@ -110,8 +110,9 @@ if ($_SESSION['almacen']==1) {
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="articulo.php"><i class="fa fa-circle-o"></i>ALUMNO </a></li>
-            <li><a href="categoria.php"><i class="fa fa-circle-o"></i>CICLO  Academico</a></li>
+            <li><a href="articulo.php"><i class="fa fa-circle-o"></i>Alumno </a></li>
+            <li><a href="categoria.php"><i class="fa fa-circle-o"></i>Ciclo Academico</a></li>
+               <li><a href="escuela.php"><i class="fa fa-circle-o"></i>Escuela Profesional</a></li>
           </ul>
         </li>';
 }
