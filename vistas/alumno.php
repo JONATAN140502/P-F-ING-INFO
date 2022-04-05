@@ -18,7 +18,7 @@ if ($_SESSION['almacen']==1) {
         <div class="col-md-12">
       <div class="box">
 <div class="box-header with-border">
-  <h1 class="box-title">Productos<button class="btn btn-success" onclick="mostrarform(true)" id="btnagregar"><i class="fa fa-plus-circle"></i>Agregar</button> <a target="_blank" href="../reportes/rptarticulos.php"><button class="btn btn-info">Reporte</button></a></h1>
+  <h1 class="box-title">Alumnos<button class="btn btn-success" onclick="mostrarform(true)" id="btnagregar"><i class="fa fa-plus-circle"></i>Agregar</button> <a target="_blank" href="../reportes/rptarticulos.php"><button class="btn btn-info">Reporte</button></a></h1>
   <div class="box-tools pull-right">
     
   </div>
@@ -29,24 +29,24 @@ if ($_SESSION['almacen']==1) {
   <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
     <thead>
       <th>Opciones</th>
-      <th>Nombre</th>
-      <th>Categoria</th>
-      <th>Codigo</th>
-      <th>Stock</th>
-      <th>Imagen</th>
-      <th>Descripcion</th>
+       <th>Codigo</th>
+       <th>Nombres </th>
+      <th>Apellidos</th>
+      <th>Rendimiento</th>
+      <th>Escuela</th>
+      <th>Ciclo</th>
       <th>Estado</th>
     </thead>
     <tbody>
     </tbody>
     <tfoot>
-       <th>Opciones</th>
-      <th>Nombre</th>
-      <th>Categoria</th>
-      <th>Codigo</th>
-      <th>Stock</th>
-      <th>Imagen</th>
-      <th>Descripcion</th>
+      <th>Opciones</th>
+       <th>Codigo</th>
+       <th>Nombres </th>
+      <th>Apellidos</th>
+      <th>Rendimiento</th>
+      <th>Escuela</th>
+      <th>Ciclo</th>
       <th>Estado</th>
     </tfoot>   
   </table>
@@ -55,30 +55,35 @@ if ($_SESSION['almacen']==1) {
   <form action="" name="formulario" id="formulario" method="POST">
     <div class="form-group col-lg-6 col-md-6 col-xs-12">
       <label for="">NOMBRE:</label>
-      <input class="form-control" type="hidden" name="idarticulo" id="idarticulo">
-      <input class="form-control" type="text" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
-    </div>
-    <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">CATEGORIA:</label>
-      <select name="idcategoria" id="idcategoria" class="form-control selectpicker" data-Live-search="true" required></select>
-    </div>
-       <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">STOCK</label>
-      <input class="form-control" type="number" name="stock" id="stock"  required>
-    </div>
-       <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">DECRIPCION</label>
-      <input class="form-control" type="text" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripcion">
+      <input class="form-control" type="hidden" name="idalumno" id="idalumno">
+      <input class="form-control" type="text" name="nombre" id="nombre" maxlength="100" placeholder="Nombres" required>
     </div>
         <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">IMAGEN</label>
-      <input class="form-control" type="file" name="imagen" id="imagen">
-      <input type="hidden" name="imagenactual" id="imagenactual">
-      <img src="" alt="" width="150px" height="120" id="imagenmuestra">
+      <label for="">AELLIDO:</label>
+     
+      <input class="form-control" type="text" name="apellido" id="apellido" maxlength="100" placeholder="Apellidos" required>
     </div>
     <div class="form-group col-lg-6 col-md-6 col-xs-12">
+      <label for="">ESCUELA:</label>
+      <select name="idescuela" id="idescuela" class="form-control selectpicker" data-Live-search="true" required></select>
+    </div>
+      <div class="form-group col-lg-6 col-md-6 col-xs-12">
+      <label for="">CICLO ACADEMICO:</label>
+      <select name="idciclo" id="idciclo" class="form-control selectpicker" data-Live-search="true" required></select>
+    </div>
+      <div class="form-group col-lg-6 col-md-6 col-xs-12">
+      <label for="">RENDIMIENTO ACADEMICO:</label>
+      <select name="idrendimiento" id="idrendimiento" class="form-control selectpicker" data-Live-search="true" required>
+          <option value="insatisfactorio">INSATISFACTORIO</option>
+           <option value="satisfactorio">SATISFACTORIO</option>
+           <option value="alto">ALTO</option>
+      </select>
+    </div>
+      
+        
+    <div class="form-group col-lg-6 col-md-6 col-xs-12">
       <label for="">CODIGO</label>
-      <input class="form-control" type="text" name="codigo" id="codigo" placeholder="codigo del prodcuto" required>
+      <input class="form-control" type="text" name="codigo" id="codigo" placeholder="codigo del alumno" required>
       <button class="btn btn-success" type="button" onclick="generarbarcode()">Generar</button>
       <button class="btn btn-info" type="button" onclick="imprimir()">Imprimir</button>
       <div id="print">
@@ -109,7 +114,7 @@ require 'footer.php'
  ?>
  <script src="../public/js/JsBarcode.all.min.js"></script>
  <script src="../public/js/jquery.PrintArea.js"></script>
- <script src="scripts/articulo.js"></script>
+ <script src="scripts/alumno.js"></script>
 
  <?php 
 }

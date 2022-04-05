@@ -1,40 +1,40 @@
 <?php 
-require_once "../modelos/Categoria.php";
+require_once "../modelos/Ciclo.php";
 
-$categoria=new Categoria();
+$ciclo1=new Ciclo();
 
-$idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
-$nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
-$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
+$idciclo=isset($_POST["idciclo"])? limpiarCadena($_POST["idciclo"]):"";
+$ciclo=isset($_POST["ciclo"])? limpiarCadena($_POST["ciclo"]):"";
+$año=isset($_POST["año"])? limpiarCadena($_POST["año"]):"";
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
-	if (empty($idcategoria)) {
-		$rspta=$categoria->insertar($nombre,$descripcion);
+	if (empty($idciclo)) {
+		$rspta=$ciclo1->insertar($ciclo, $año);
 		echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
 	}else{
-         $rspta=$categoria->editar($idcategoria,$nombre,$descripcion);
+         $rspta=$ciclo1->editar($idciclo,$ciclo,$año);
 		echo $rspta ? "Datos actualizados correctamente" : "No se pudo actualizar los datos";
 	}
 		break;
 	
 
 	case 'desactivar':
-		$rspta=$categoria->desactivar($idcategoria);
+		$rspta=$ciclo1->desactivar($idciclo);
 		echo $rspta ? "Datos desactivados correctamente" : "No se pudo desactivar los datos";
 		break;
 	case 'activar':
-		$rspta=$categoria->activar($idcategoria);
+		$rspta=$ciclo1->activar($idciclo);
 		echo $rspta ? "Datos activados correctamente" : "No se pudo activar los datos";
 		break;
 	
 	case 'mostrar':
-		$rspta=$categoria->mostrar($idcategoria);
+		$rspta=$ciclo1->mostrar($idciclo);
 		echo json_encode($rspta);
 		break;
 
     case 'listar':
-		$rspta=$categoria->listar();
+		$rspta=$ciclo1->listar();
 		$data=Array();
 
 		while ($reg=$rspta->fetch_object()) {

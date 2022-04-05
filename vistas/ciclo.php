@@ -50,12 +50,12 @@ if ($_SESSION['almacen']==1) {
   <form action="" name="formulario" id="formulario" method="POST">
     <div class="form-group col-lg-6 col-md-6 col-xs-12">
       <label for="">CICLO ACADEMICO</label>
-      <input class="form-control" type="hidden" name="idcategoria" id="idcategoria">
-      <input class="form-control" type="text" name="nombre" id="nombre" maxlength="50" placeholder="Nombre" required>
+      <input class="form-control" type="hidden" name="idciclo" id="idciclo">
+      <input class="form-control" type="text" name="ciclo" id="ciclo" maxlength="50" placeholder="CICLO" required>
     </div>
         <div class="form-group col-lg-6 col-md-6 col-xs-12">
       <label for="">AÑO</label>
-      <input class="form-control" type="text" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripcion">
+      <input class="form-control" type="text" name="año" id="año" maxlength="256" placeholder="AÑO">
     </div>
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>  Guardar</button>
@@ -80,7 +80,7 @@ if ($_SESSION['almacen']==1) {
 
 require 'footer.php';
  ?>
- <script src="scripts/categoria.js"></script>
+ <script src="scripts/ciclo.js"></script>
  <?php 
 }
 

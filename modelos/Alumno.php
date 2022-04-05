@@ -1,7 +1,7 @@
 <?php 
 //incluir la conexion de base de datos
 require "../config/Conexion.php";
-class Articulo{
+class Alumno{
 
 
 	//implementamos nuestro constructor
@@ -38,7 +38,8 @@ public function mostrar($idarticulo){
 
 //listar registros 
 public function listar(){
-	$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo, a.nombre,a.stock,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN Categoria c ON a.idcategoria=c.idcategoria";
+	$sql="SELECT a.id,codigo,a.nombre,apellido,rendimiento,e.nombre as escuela ,a.condicion,c.ciclo as ciclo from alumno a inner join
+escuela e on  a.escuela=e.id inner join cicloac c on a.ciclo=c.id";
 	return ejecutarConsulta($sql);
 }
 

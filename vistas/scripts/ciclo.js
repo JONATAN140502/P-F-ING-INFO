@@ -8,25 +8,13 @@ function init(){
    $("#formulario").on("submit",function(e){
    	guardaryeditar(e);
    })
-
-   //cargamos los items al celect categoria
-   $.post("../ajax/articulo.php?op=selectCategoria", function(r){
-   	$("#idcategoria").html(r);
-   	$("#idcategoria").selectpicker('refresh');
-   });
-   $("#imagenmuestra").hide();
 }
 
 //funcion limpiar
 function limpiar(){
-	$("#codigo").val("");
-	$("#nombre").val("");
-	$("#descripcion").val("");
-	$("#stock").val("");
-	$("#imagenmuestra").attr("src","");
-	$("#imagenactual").val("");
-	$("#print").hide();
-	$("#idarticulo").val("");
+	$("#idciclo").val("");
+	$("#ciclo").val("");
+	$("#año").val("");
 }
 
 //funcion mostrar formulario
@@ -64,7 +52,7 @@ function listar(){
 		],
 		"ajax":
 		{
-			url:'../ajax/articulo.php?op=listar',
+			url:'../ajax/ciclo.php?op=listar',
 			type: "get",
 			dataType : "json",
 			error:function(e){
@@ -83,7 +71,7 @@ function guardaryeditar(e){
      var formData=new FormData($("#formulario")[0]);
 
      $.ajax({
-     	url: "../ajax/articulo.php?op=guardaryeditar",
+     	url: "../ajax/ciclo.php?op=guardaryeditar",
      	type: "POST",
      	data: formData,
      	contentType: false,
@@ -99,33 +87,25 @@ function guardaryeditar(e){
      limpiar();
 }
 
-function mostrar(idarticulo){
-	$.post("../ajax/articulo.php?op=mostrar",{idarticulo : idarticulo},
+function mostrar(idciclo){
+	$.post("../ajax/ciclo.php?op=mostrar",{idciclo : idciclo},
 		function(data,status)
 		{
 			data=JSON.parse(data);
 			mostrarform(true);
 
-			$("#idcategoria").val(data.idcategoria);
-			$("#idcategoria").selectpicker('refresh');
-			$("#codigo").val(data.codigo);
-			$("#nombre").val(data.nombre);
-			$("#stock").val(data.stock);
-			$("#descripcion").val(data.descripcion);
-			$("#imagenmuestra").show();
-			$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
-			$("#imagenactual").val(data.imagen);
-			$("#idarticulo").val(data.idarticulo);
-			generarbarcode();
+			$("#ciclo").val(data.ciclo);
+			$("#año").val(data.año);
+			$("#idciclo").val(data.id);
 		})
 }
 
 
 //funcion para desactivar
-function desactivar(idarticulo){
+function desactivar(idciclo){
 	bootbox.confirm("¿Esta seguro de desactivar este dato?", function(result){
 		if (result) {
-			$.post("../ajax/articulo.php?op=desactivar", {idarticulo : idarticulo}, function(e){
+			$.post("../ajax/ciclo.php?op=desactivar", {idciclo : idciclo}, function(e){
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});
@@ -133,26 +113,15 @@ function desactivar(idarticulo){
 	})
 }
 
-function activar(idarticulo){
+function activar(idciclo){
 	bootbox.confirm("¿Esta seguro de activar este dato?" , function(result){
 		if (result) {
-			$.post("../ajax/articulo.php?op=activar" , {idarticulo : idarticulo}, function(e){
+			$.post("../ajax/ciclo.php?op=activar" , {idciclo : idciclo}, function(e){
 				bootbox.alert(e);
 				tabla.ajax.reload();
 			});
 		}
 	})
-}
-
-function generarbarcode(){
-	codigo=$("#codigo").val();
-	JsBarcode("#barcode",codigo);
-	$("#print").show();
-
-}
-
-function imprimir(){
-	$("#print").printArea();
 }
 
 init();

@@ -1,7 +1,7 @@
 <?php 
-require_once "../modelos/Articulo.php";
+require_once "../modelos/Alumno.php";
 
-$articulo=new Articulo();
+$alumno=new Alumno();
 
 $idarticulo=isset($_POST["idarticulo"])? limpiarCadena($_POST["idarticulo"]):"";
 $idcategoria=isset($_POST["idcategoria"])? limpiarCadena($_POST["idcategoria"]):"";
@@ -48,18 +48,18 @@ switch ($_GET["op"]) {
 		break;
 
     case 'listar':
-		$rspta=$articulo->listar();
+		$rspta=$alumno->listar();
 		$data=Array();
 
 		while ($reg=$rspta->fetch_object()) {
 			$data[]=array(
-            "0"=>($reg->condicion)?'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="desactivar('.$reg->idarticulo.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idarticulo.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-primary btn-xs" onclick="activar('.$reg->idarticulo.')"><i class="fa fa-check"></i></button>',
-            "1"=>$reg->nombre,
-            "2"=>$reg->categoria,
-            "3"=>$reg->codigo,
-            "4"=>$reg->stock,
-            "5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>",
-            "6"=>$reg->descripcion,
+            "0"=>($reg->condicion)?'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->id.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="desactivar('.$reg->id.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->id.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-primary btn-xs" onclick="activar('.$reg->id.')"><i class="fa fa-check"></i></button>',
+             "1"=>$reg->codigo,
+            "2"=>$reg->nombre,
+            "3"=>$reg->apellido,
+            "4"=>$reg->rendimiento,
+            "5"=>$reg->escuela,
+            "6"=>$reg->ciclo,
             "7"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
               );
 		}
@@ -71,14 +71,24 @@ switch ($_GET["op"]) {
 		echo json_encode($results);
 		break;
 
-		case 'selectCategoria':
-			require_once "../modelos/Categoria.php";
-			$categoria=new Categoria();
+case 'selectCiclo':
+			require_once "../modelos/Ciclo.php";
+			$ciclo1=new Ciclo();
 
-			$rspta=$categoria->select();
+			$rspta1=$ciclo1->select();
+
+			while ($reg1=$rspta1->fetch_object()) {
+				echo '<option value=' . $reg1->id.'>'.$reg1->ciclo.'</option>';
+			}
+			break;
+ case 'selectEscuela':
+			require_once "../modelos/Escuela.php";
+			$escuela1=new Escuela();
+
+			$rspta=$escuela1->select();
 
 			while ($reg=$rspta->fetch_object()) {
-				echo '<option value=' . $reg->idcategoria.'>'.$reg->nombre.'</option>';
+				echo '<option value=' . $reg->id.'>'.$reg->nombre.'</option>';
 			}
 			break;
 }
