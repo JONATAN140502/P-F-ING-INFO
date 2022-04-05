@@ -72,28 +72,28 @@ if ($_SESSION['escritorio']==1) {
   <div class="small-box bg-aqua">
     <div class="inner">
       <h4 style="font-size: 17px;">
-        <strong>S/. 192 </strong>
+        <strong>15 </strong>
       </h4>
-      <p>Compras</p>
+      <p>Alumnos en sitema Tutoria</p>
     </div>
     <div class="icon">
       <i class="ion ion-bag"></i>
     </div>
-    <a href="ingreso.php" class="small-box-footer">Compras <i class="fa fa-arrow-circle-right"></i></a>
+    <a href="ingreso.php" class="small-box-footer">ALUMNOS <i class="fa fa-arrow-circle-right"></i></a>
   </div>
 </div>
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
   <div class="small-box bg-green">
     <div class="inner">
       <h4 style="font-size: 17px;">
-        <strong>S/. 130 </strong>
+        <strong>15 </strong>
       </h4>
-      <p>Ventas</p>
+      <p>TUTORES</p>
     </div>
     <div class="icon">
       <i class="ion ion-bag"></i>
     </div>
-    <a href="venta.php" class="small-box-footer">Ventas <i class="fa fa-arrow-circle-right"></i></a>
+    <a href="venta.php" class="small-box-footer">PROFESORES TUTORES <i class="fa fa-arrow-circle-right"></i></a>
   </div>
 </div>
 </div>
@@ -101,7 +101,7 @@ if ($_SESSION['escritorio']==1) {
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
   <div class="box box-primary">
     <div class="box-header with-border">
-      Compras de los ultimos 10 dias
+      TUORIAS BRINDADAS de los ultimos 10 dias
     </div>
     <div class="box-body">
       <canvas id="compras" width="400" height="300"></canvas>
@@ -111,7 +111,7 @@ if ($_SESSION['escritorio']==1) {
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
   <div class="box box-primary">
     <div class="box-header with-border">
-      Ventas de los ultimos 12 meses
+      TUTORIAS BRINDADAS de los ultimos 12 meses
     </div>
     <div class="box-body">
       <canvas id="ventas" width="400" height="300"></canvas>

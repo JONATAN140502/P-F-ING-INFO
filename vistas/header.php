@@ -117,6 +117,7 @@ if ($_SESSION['almacen']==1) {
         </li>';
 }
         ?>
+<!-- 
                <?php 
 if ($_SESSION['compras']==1) {
   echo ' <li class="treeview">
@@ -134,7 +135,7 @@ if ($_SESSION['compras']==1) {
 }
         ?>
         
-               <?php 
+              <?php 
 if ($_SESSION['ventas']==1) {
   echo '<li class="treeview">
           <a href="#">
@@ -198,7 +199,7 @@ if ($_SESSION['consultav']==1) {
           </ul>
         </li>';
 }
-        ?>     
+        ?>     -->
             
         
         <li><a href="#"><i class="fa fa-question-circle"></i> <span>Ayuda</span><small class="label pull-right bg-yellow">PDF</small></a></li>
