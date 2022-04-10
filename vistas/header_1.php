@@ -100,20 +100,19 @@ if (strlen(session_id())<1)
 
 <br>
 
-   <li><a href="escritorio_1.php"><i class="fa fa-laptop (alias)"></i> <span>Escritorio</span></a>
+   <li><a href="escritorio_1.php"><i class="fa fa-laptop (alias)"></i> <span>Alumnos a Tutorar</span></a>
         </li>
 
 
   <li class="treeview">
           <a href="#">
-            <i class="fa fa-anchor"></i> <span>Alumno</span>
+            <i class="fa fa-anchor"></i> <span>Cursos A dictar</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="ciclo.php"><i class="fa fa-circle-o"></i>Mis Datos </a></li>
-            <li><a href="ciclo.php"><i class="fa fa-circle-o"></i>Mis Datos </a></li>
+            <li><a href="ciclo.php"><i class="fa fa-circle-o"></i>Curso</a></li>
           </ul>
         </li>
        <li><a href="#"><i class="fa fa-question-circle"></i> <span>Ayuda</span><small class="label pull-right bg-yellow">PDF</small></a></li>
