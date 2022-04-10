@@ -3,8 +3,8 @@ var tabla;
 //funcion que se ejecuta al inicio
 function init(){
    mostrarform(false);
-   listar();
-
+      listar();
+    listar1();
    $("#formulario").on("submit",function(e){
    	guardaryeditar(e);
    })
@@ -36,11 +36,14 @@ function mostrarform(flag){
 	limpiar();
 	if(flag){
 		$("#listadoregistros").hide();
+                $("#listadoregistros1").hide();
 		$("#formularioregistros").show();
+                $("#formularioregistros1").show();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 	}else{
 		$("#listadoregistros").show();
+                $("#listadoregistros1").show;
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
 	}
@@ -67,6 +70,32 @@ function listar(){
 		"ajax":
 		{
 			url:'../ajax/usuario.php?op=listar',
+			type: "get",
+			dataType : "json",
+			error:function(e){
+				console.log(e.responseText);
+			}
+		},
+		"bDestroy":true,
+		"iDisplayLength":5,//paginacion
+		"order":[[0,"desc"]]//ordenar (columna, orden)
+	}).DataTable();
+}
+//funcion listar
+function listar1(){
+	tabla=$('#tbllistado1').dataTable({
+		"aProcessing": true,//activamos el procedimiento del datatable
+		"aServerSide": true,//paginacion y filrado realizados por el server
+		dom: 'Bfrtip',//definimos los elementos del control de la tabla
+		buttons: [
+                  'copyHtml5',
+                  'excelHtml5',
+                  'csvHtml5',
+                  'pdf'
+		],
+		"ajax":
+		{
+			url:'../ajax/usuario.php?op=listarcurso',
 			type: "get",
 			dataType : "json",
 			error:function(e){

@@ -4,7 +4,7 @@ $("#frmAcceso").on('submit', function(e)
 	logina=$("#logina").val();
 	clavea=$("#clavea").val();
 
-	$.post("../ajax/usuario_1.php?op=verificar",
+	$.post("../ajax/usuario.php?op=verificarr",
         {"logina":logina, "clavea":clavea},
         function(data)
         {

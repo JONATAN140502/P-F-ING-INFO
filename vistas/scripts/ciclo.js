@@ -45,14 +45,12 @@ function listar(){
 		"aServerSide": true,//paginacion y filrado realizados por el server
 		dom: 'Bfrtip',//definimos los elementos del control de la tabla
 		buttons: [
-                  'copyHtml5',
-                  'excelHtml5',
-                  'csvHtml5',
+                 
                   'pdf'
 		],
 		"ajax":
 		{
-			url:'../ajax/ciclo.php?op=listar',
+			url:'../ajax/usuario.php?op=listarcurso',
 			type: "get",
 			dataType : "json",
 			error:function(e){

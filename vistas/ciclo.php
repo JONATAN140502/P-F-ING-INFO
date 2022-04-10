@@ -18,28 +18,25 @@ require 'header_1.php';
         <div class="col-md-12">
       <div class="box">
 <div class="box-header with-border">
-  <h1 class="box-title">Ciclo Academico <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i>Agregar</button></h1>
+  <h1 class="box-title">Curso a Dictar </h1>
   <div class="box-tools pull-right">
     
   </div>
 </div>
 <!--box-header-->
 <!--centro-->
-<div class="panel-body table-responsive" id="listadoregistros">
-  <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+<div class="panel-body table-responsive" id="listadoregistros1">
+  <table id="tbllistado1" class="table table-striped table-bordered table-condensed table-hover">
     <thead>
-      <th>Opciones</th>
-      <th>Ciclo Academico</th>
-      <th>Año</th>
-      <th>Estado</th>
+     
+      <th>curso</th>
+      
     </thead>
     <tbody>
     </tbody>
     <tfoot>
-       <th>Opciones</th>
-      <th>Ciclo Academico</th>
-      <th>Año</th>
-      <th>Estado</th>
+        <th>Curso</th>
+
     </tfoot>   
   </table>
 </div>
@@ -73,7 +70,7 @@ require 'header_1.php';
 <?php 
 require 'footer.php';
  ?>
- <script src="scripts/ciclo.js"></script>
+<script src="scripts/usuario.js"></script>
  <?php 
 }
 

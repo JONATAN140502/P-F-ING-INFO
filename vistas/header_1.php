@@ -77,7 +77,7 @@ if (strlen(session_id())<1)
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="../ajax/usuario_1.php?op=salir" class="btn btn-default btn-flat">Salir</a>
+                  <a href="../ajax/usuario.php?op=salir1" class="btn btn-default btn-flat">Salir</a>
                 </div>
               </li>
             </ul>

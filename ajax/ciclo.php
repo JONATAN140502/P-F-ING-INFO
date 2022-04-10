@@ -1,6 +1,6 @@
 <?php 
 require_once "../modelos/Ciclo.php";
-
+//require_once "../ajax/usuario.php";
 $ciclo1=new Ciclo();
 
 $idciclo=isset($_POST["idciclo"])? limpiarCadena($_POST["idciclo"]):"";
@@ -34,16 +34,13 @@ switch ($_GET["op"]) {
 		break;
 
     case 'listar':
-		$rspta=$ciclo1->listar();
+ $is=$_SESSION['tutorids'];
+		$rspta=$ciclo1->listar($is);
 		$data=Array();
 
 		while ($reg=$rspta->fetch_object()) {
 			$data[]=array(
-            "0"=>($reg->condicion)?'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->id.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="desactivar('.$reg->id.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->id.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-primary btn-xs" onclick="activar('.$reg->id.')"><i class="fa fa-check"></i></button>',
-            "1"=>$reg->ciclo,
-            "2"=>$reg->año,
-            "3"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
-              );
+            "0"=>$reg->curso );
 		}
 		$results=array(
              "sEcho"=>1,//info para datatables

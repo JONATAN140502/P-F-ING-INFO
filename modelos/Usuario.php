@@ -64,8 +64,12 @@ public function mostrar($idusuario){
 }
 
 //listar registros
-public function listar(){
-	$sql="SELECT * FROM usuario";
+public function listar($idt){
+	$sql="select  alumno.codigo ,concat_ws('  ',alumno.nombre,alumno.apellido)as alumno ,curso.nombre as curso,escuela.nombre as escuela,tutoria.fecha from tutoria
+inner join alumno on  tutoria.alummno=alumno.id
+inner join curso on  tutoria.curso=curso.id 
+inner join  escuela on curso.escuela=escuela.id
+where tutoria.usuario='$idt'";
 	return ejecutarConsulta($sql);
 }
 
@@ -75,7 +79,10 @@ public function listarmarcados($login,$clave){
 $sql11="SELECT id,nombre,apellido,email,nivel from usuario where login='$login' and clave='$clave' AND condicion='1'";
 	 return ejecutarConsulta($sql11);
 }
-
+public function listarcurso($is){
+	$sql="select curso.nombre as curso from tutoria inner  join  curso  on tutoria.curso=curso.id where tutoria.usuario='$is' group by curso.nombre";
+	return ejecutarConsulta($sql);
+}
 
 //funcion que verifica el acceso al sistema
 
@@ -85,7 +92,11 @@ $sql1="SELECT  a.id,a.codigo , a.nombre,a.apellido,a.rendimiento,e.nombre  as es
 inner join escuela e  on a.escuela=e.id inner join cicloac ca on a.ciclo=ca.id 
 where  a.usuario='$login'and a.clave='$clave' and a.condicion='1'";
     return ejecutarConsulta($sql1);}
-    
+  public function verificarr($login,$clave){
+
+$sql="SELECT id,nombre,apellido,email,nivel from usuario where login='$login' and clave='$clave' AND condicion='1'";
+	 return ejecutarConsulta($sql);
+}  
 }
 
 

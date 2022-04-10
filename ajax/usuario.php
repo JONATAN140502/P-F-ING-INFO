@@ -15,7 +15,6 @@ $cargo=isset($_POST["cargo"])? limpiarCadena($_POST["cargo"]):"";
 $login=isset($_POST["login"])? limpiarCadena($_POST["login"]):"";
 $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
-
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
 
@@ -64,11 +63,12 @@ switch ($_GET["op"]) {
 	$fetch1=$rspta1->fetch_object();
 	if (isset($fetch1)) {
 	$_SESSION1['idtutor'] = $fetch1->id;
+        $_SESSION1['idtutor'] = $fetch1->id;
         $_SESSION1['nombre'] = $fetch1->nombre;
         $_SESSION1['apellido'] = $fetch1->apellido;
         $_SESSION1['email'] = $fetch1->email;
         $_SESSION1['nivel'] = $fetch1->nivel;
-        
+   
 		$_SESSION1['escritorio']=1;
 		$_SESSION1['almacen']=1;
 		$_SESSION1['compras']=1;
@@ -83,21 +83,18 @@ echo json_encode($fetch1);
 	break;
 
 	case 'listar':
-	$rspta=$usuario->listar();
+             $isd=$_SESSION['tutorid'];
+	$rspta=$usuario->listar($isd);
 	$data=Array();
 
 	while ($reg=$rspta->fetch_object()) {
 		$data[]=array(
-			"0"=>($reg->condicion)?'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idusuario.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="desactivar('.$reg->idusuario.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idusuario.')"><i class="fa fa-pencil"></i></button>'.' '.'<button class="btn btn-primary btn-xs" onclick="activar('.$reg->idusuario.')"><i class="fa fa-check"></i></button>',
-			"1"=>$reg->nombre,
-			"2"=>$reg->tipo_documento,
-			"3"=>$reg->num_documento,
-			"4"=>$reg->telefono,
-			"5"=>$reg->email,
-			"6"=>$reg->login,
-			"7"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
-			"8"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
-		);
+			"0"=>$reg->codigo,
+                         "1"=>$reg->alumno,
+			"2"=>$reg->curso,
+			"3"=>$reg->escuela,
+			"4"=>$reg->fecha,
+			);
 	}
 
 	$results=array(
@@ -156,25 +153,52 @@ echo json_encode($fetch1);
 		$marcados=$usuario->listarmarcados($fetch->id);
 
 		//declaramos el array para almacenar todos los permisos
-		$valores=array();
-
-		//almacenamos los permisos marcados en al array
-		while ($per = $marcados->fetch_object()) {
-			array_push($valores, $per->idpermiso);
-		}
-
-		//determinamos lo accesos al usuario
-		in_array(1, $valores)?$_SESSION['escritorio']=1:$_SESSION['escritorio']=0;
-		in_array(2, $valores)?$_SESSION['almacen']=1:$_SESSION['almacen']=0;
-		in_array(3, $valores)?$_SESSION['compras']=1:$_SESSION['compras']=0;
-		in_array(4, $valores)?$_SESSION['ventas']=1:$_SESSION['ventas']=0;
-		in_array(5, $valores)?$_SESSION['acceso']=1:$_SESSION['acceso']=0;
-		in_array(6, $valores)?$_SESSION['consultac']=1:$_SESSION['consultac']=0;
-		in_array(7, $valores)?$_SESSION['consultav']=1:$_SESSION['consultav']=0;
+		
 echo json_encode($fetch);
 	}
 
 	break;
+        case 'verificarr':
+	$logina1=$_POST['logina'];
+	$clavea1=$_POST['clavea'];
+
+//	//Hash SHA256 en la contraseña
+//	$clavehash=hash("SHA256", $clavea);
+	
+	$rspta1=$usuario->verificarr($logina1, $clavea1);
+
+	$fetch1=$rspta1->fetch_object();
+	if (isset($fetch1)) {
+	
+        $_SESSION['tutorid']=$fetch1->id;
+        $_SESSION['nombre1']=$fetch1->nombre;
+       $_SESSION['apellido1']=$fetch1->apellido;
+        $_SESSION['email1']=$fetch1->email;
+        $_SESSION['nivel1']=$fetch1->nivel;
+      
+		
+ echo json_encode($fetch1);
+	}
+
+	break;
+ case 'listarcurso':
+ $iss=$_SESSION['tutorid'];
+		$rspta=$usuario->listarcurso($iss);
+		$data=Array();
+
+		while ($reg=$rspta->fetch_object()) {
+			$data[]=array(
+            "0"=>$reg->curso );
+		
+                        
+                }
+		$results=array(
+             "sEcho"=>1,//info para datatables
+             "iTotalRecords"=>count($data),//enviamos el total de registros al datatable
+             "iTotalDisplayRecords"=>count($data),//enviamos el total de registros a visualizar
+             "aaData"=>$data); 
+		echo json_encode($results);
+		break;
 	case 'salir':
 	   //limpiamos la variables de la secion
 	session_unset();
@@ -184,7 +208,7 @@ echo json_encode($fetch);
 		  //redireccionamos al login
 	header("Location: ../index.php");
 	break;
-    case 'salir1':
+  case 'salir1':
 	   //limpiamos la variables de la secion
 	session_unset();
 

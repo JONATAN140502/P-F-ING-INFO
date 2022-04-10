@@ -10,32 +10,13 @@ $("#frmAcceso").on('submit', function(e)
         {"logina":logina, "clavea":clavea},
         function(data)
         {
-           if (data==="null")
+           if (data!="null")
             {
-            	bootbox.confirm("Usuario y/o Password incorrectos");
-            }else{
-                $(location).attr("href","escritorio.php");
+                 $(location).attr("href","escritorio.php");
             	
+            }else{
+              	bootbox.confirm("Usuario y/o Password incorrectos");
             }
         });
-})
+});
 
-$("#frmAcceso1").on('submit', function(e)
-{
-	e.preventDefault();
-	logina=$("#logina").val();
-	clavea=$("#clavea").val();
-
-	$.post("../ajax/tutor.php?op=verificar",
-        {"logina":logina, "clavea":clavea},
-        function(data)
-        {
-           if (data==="null")
-            {
-            	bootbox.confirm("Usuario y/o Password incorrectos");
-            }else{
-                $(location).attr("href","escritorio1.php");
-            	
-            }
-        });
-})

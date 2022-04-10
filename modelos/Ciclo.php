@@ -36,8 +36,8 @@ public function mostrar($idciclo){
 }
 
 //listar registros
-public function listar(){
-	$sql="SELECT * FROM cicloac";
+public function listar($is){
+	$sql="select curso.nombre as curso from tutoria inner  join  curso  on tutoria.curso=curso.id where tutoria.usuario='$is'";
 	return ejecutarConsulta($sql);
 }
 //listar y mostrar en selct
