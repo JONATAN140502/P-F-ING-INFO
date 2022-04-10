@@ -61,9 +61,13 @@ if (strlen(session_id())<1)
               <li class="user-header">
               
                       <span class="hidden-xs"><?php echo $_SESSION['nombre']; ?></span>
+                      
                 <p>
                
-                  <small></small>
+                    <small>
+                        
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEqHXwSz1u8Netep301Mkuu9thY6WisMW8SQ&usqp=CAU" alt="70" width="100" />
+                    </small>
                 </p>
               </li>
               <!-- Menu Footer-->
