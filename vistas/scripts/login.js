@@ -12,7 +12,7 @@ $("#frmAcceso").on('submit', function(e)
         {
            if (data==="null")
             {
-            	bootbox.alert("Usuario y/o Password incorrectos");
+            	bootbox.confirm("Usuario y/o Password incorrectos");
             }else{
                 $(location).attr("href","escritorio.php");
             	

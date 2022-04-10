@@ -6,14 +6,11 @@ if (strlen(session_id())<1)
 $venta = new Venta();
 
 $idventa=isset($_POST["idventa"])? limpiarCadena($_POST["idventa"]):"";
-$idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
-$idusuario=$_SESSION["idusuario"];
-$tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
-$serie_comprobante=isset($_POST["serie_comprobante"])? limpiarCadena($_POST["serie_comprobante"]):"";
-$num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_comprobante"]):"";
+$curso=isset($_POST["curso"])? limpiarCadena($_POST["curso"]):"";
+$tutor=isset($_POST["tutor"])? limpiarCadena($_POST["tutor"]):"";
+$ides=$_SESSION["idalumno"];
 $fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
-$impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
-$total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
+
 
 
 
@@ -22,7 +19,7 @@ $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
 	if (empty($idventa)) {
-		$rspta=$venta->insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_venta"],$_POST["descuento"]); 
+		$rspta=$venta->insertar($ides, $curso, $tutor, $fecha_hora); 
 		echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
 	}else{
         
@@ -39,62 +36,40 @@ switch ($_GET["op"]) {
 		$rspta=$venta->mostrar($idventa);
 		echo json_encode($rspta);
 		break;
-
-	case 'listarDetalle':
-		//recibimos el idventa
-		$id=$_GET['id'];
-
-		$rspta=$venta->listarDetalle($id);
-		$total=0;
-		echo ' <thead style="background-color:#A9D0F5">
-        <th>Opciones</th>
-        <th>Articulo</th>
-        <th>Cantidad</th>
-        <th>Precio Venta</th>
-        <th>Descuento</th>
-        <th>Subtotal</th>
-       </thead>';
-		while ($reg=$rspta->fetch_object()) {
-			echo '<tr class="filas">
-			<td></td>
-			<td>'.$reg->nombre.'</td>
-			<td>'.$reg->cantidad.'</td>
-			<td>'.$reg->precio_venta.'</td>
-			<td>'.$reg->descuento.'</td>
-			<td>'.$reg->subtotal.'</td></tr>';
-			$total=$total+($reg->precio_venta*$reg->cantidad-$reg->descuento);
-		}
-		echo '<tfoot>
-         <th>TOTAL</th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th><h4 id="total">S/. '.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th>
-       </tfoot>';
-		break;
-
     case 'listar':
-		$rspta=$venta->listar();
+            $idt=$_SESSION["idalumno"];
+		$rspta=$venta->listar($idt);
+		$data=Array();
+		while ($reg=$rspta->fetch_object()) {
+                $data[]=array(
+           "0"=>$reg->Tutor,
+            "1"=>$reg->curso,
+            "2"=>$reg->fecha
+            
+           );
+		}
+		$results=array(
+             "sEcho"=>1,//info para datatables
+             "iTotalRecords"=>count($data),//enviamos el total de registros al datatable
+             "iTotalDisplayRecords"=>count($data),//enviamos el total de registros a visualizar
+             "aaData"=>$data); 
+		echo json_encode($results);
+		break;
+   case 'listardatos':
+          $idq=$_SESSION["idalumno"];
+		
+       $rspta=$venta->listardatos($idq);
 		$data=Array();
 
 		while ($reg=$rspta->fetch_object()) {
-                 if ($reg->tipo_comprobante=='Ticket') {
-                 	$url='../reportes/exTicket.php?id=';
-                 }else{
-                    $url='../reportes/exFactura.php?id=';
-                 }
-
 			$data[]=array(
-            "0"=>(($reg->estado=='Aceptado')?'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idventa.')"><i class="fa fa-eye"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="anular('.$reg->idventa.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idventa.')"><i class="fa fa-eye"></i></button>').
-            '<a target="_blank" href="'.$url.$reg->idventa.'"> <button class="btn btn-info btn-xs"><i class="fa fa-file"></i></button></a>',
-            "1"=>$reg->fecha,
-            "2"=>$reg->cliente,
-            "3"=>$reg->usuario,
-            "4"=>$reg->tipo_comprobante,
-            "5"=>$reg->serie_comprobante. '-' .$reg->num_comprobante,
-            "6"=>$reg->total_venta,
-            "7"=>($reg->estado=='Aceptado')?'<span class="label bg-green">Aceptado</span>':'<span class="label bg-red">Anulado</span>'
+            "0"=>$reg->codigo,
+            "1"=>$reg->nombre,
+            "2"=>$reg->apellido,
+            "3"=>$reg->rendimiento,
+            "4"=>$reg->escuela,
+            "5"=>$reg->ciclo
+         
               );
 		}
 		$results=array(
@@ -105,18 +80,29 @@ switch ($_GET["op"]) {
 		echo json_encode($results);
 		break;
 
-		case 'selectCliente':
-			require_once "../modelos/Persona.php";
+case 'selecttutor':
+require_once "../modelos/Persona.php";
 			$persona = new Persona();
 
-			$rspta = $persona->listarc();
+			$rspta = $persona->listartutor();
 
 			while ($reg = $rspta->fetch_object()) {
-				echo '<option value='.$reg->idpersona.'>'.$reg->nombre.'</option>';
+				echo '<option value='.$reg->id.'>'.$reg->nombre.''.$reg->apellido.'</option>';
+			}
+			break;
+case 'selectcurso':
+    $idc=$_SESSION["idescuela"];
+require_once "../modelos/Persona.php";
+			$persona = new Persona();
+
+			$rspta = $persona->listacurso($idc);
+
+			while ($reg = $rspta->fetch_object()) {
+				echo '<option value='.$reg->id.'>'.$reg->nombre.'</option>';
 			}
 			break;
 
-			case 'listarArticulos':
+case 'listarArticulos':
 			require_once "../modelos/Articulo.php";
 			$articulo=new Articulo();
 

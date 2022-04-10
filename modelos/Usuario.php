@@ -78,10 +78,10 @@ public function listarmarcados($idusuario){
 //funcion que verifica el acceso al sistema
 
 public function verificar($login,$clave){
-
-	$sql="SELECT id,nombre,apellido,email,cargo,imagen,login FROM usuario WHERE login='$login' AND clave='$clave' AND condicion='1'";
-	 return ejecutarConsulta($sql);
-
+$sql1="SELECT  a.id,a.codigo , a.nombre,a.apellido,a.rendimiento,e.nombre  as escuela,ca.ciclo ,a.escuela as idescuela from alumno a
+inner join escuela e  on a.escuela=e.id inner join cicloac ca on a.ciclo=ca.id 
+where  a.usuario='$login'and a.clave='$clave' and a.condicion='1'";
+	 return ejecutarConsulta($sql1);
 }
 }
 

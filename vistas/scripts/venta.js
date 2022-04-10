@@ -4,42 +4,34 @@ var tabla;
 function init(){
    mostrarform(false);
    listar();
+    listar1();
 
    $("#formulario").on("submit",function(e){
    	guardaryeditar(e);
    });
 
    //cargamos los items al select cliente
-   $.post("../ajax/venta.php?op=selectCliente", function(r){
-   	$("#idcliente").html(r);
-   	$('#idcliente').selectpicker('refresh');
+   $.post("../ajax/venta.php?op=selecttutor", function(r){
+   	$("#tutor").html(r);
+   	$('#tutor').selectpicker('refresh');
    });
-
+$.post("../ajax/venta.php?op=selectcurso", function(r){
+   	$("#curso").html(r);
+   	$('#curso').selectpicker('refresh');
+   });
 }
 
 //funcion limpiar
 function limpiar(){
 
-	$("#idcliente").val("");
-	$("#cliente").val("");
-	$("#serie_comprobante").val("");
-	$("#num_comprobante").val("");
-	$("#impuesto").val("");
-
-	$("#total_venta").val("");
-	$(".filas").remove();
-	$("#total").html("0");
-
-	//obtenemos la fecha actual
+	$("#cusro").val("");
+	$("#tutor").val("");
+//obtenemos la fecha actual
 	var now = new Date();
 	var day =("0"+now.getDate()).slice(-2);
 	var month=("0"+(now.getMonth()+1)).slice(-2);
 	var today=now.getFullYear()+"-"+(month)+"-"+(day);
 	$("#fecha_hora").val(today);
-
-	//marcamos el primer tipo_documento
-	$("#tipo_comprobante").val("Boleta");
-	$("#tipo_comprobante").selectpicker('refresh');
 
 }
 
@@ -48,18 +40,17 @@ function mostrarform(flag){
 	limpiar();
 	if(flag){
 		$("#listadoregistros").hide();
+                $("#listadoregistros1").hide();
 		$("#formularioregistros").show();
 		//$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-		listarArticulos();
-
-		$("#btnGuardar").hide();
+		$("#btnGuardar").show();
 		$("#btnCancelar").show();
 		detalles=0;
 		$("#btnAgregarArt").show();
 
 
-	}else{
+	}else{$("#listadoregistros1").show();
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
@@ -79,10 +70,12 @@ function listar(){
 		"aServerSide": true,//paginacion y filrado realizados por el server
 		dom: 'Bfrtip',//definimos los elementos del control de la tabla
 		buttons: [
-                  'copyHtml5',
-                  'excelHtml5',
-                  'csvHtml5',
-                  'pdf'
+                  {
+            extend: 'pdfHtml5',
+            text: 'PDF',
+            className:'btn btn-outline-danger'
+            
+        }
 		],
 		"ajax":
 		{
@@ -98,7 +91,29 @@ function listar(){
 		"order":[[0,"desc"]]//ordenar (columna, orden)
 	}).DataTable();
 }
-
+function listar1(){
+	tabla=$('#tbllistado1').dataTable({
+		"aProcessing": true,//activamos el procedimiento del datatable
+		"aServerSide": true,//paginacion y filrado realizados por el server
+		dom: 'Bfrtip',//definimos los elementos del control de la tabla
+		buttons: [
+                 
+                  'pdf'
+		],
+		"ajax":
+		{
+			url:'../ajax/venta.php?op=listardatos',
+			type: "get",
+			dataType : "json",
+			error:function(e){
+				console.log(e.responseText);
+			}
+		},
+		"bDestroy":true,
+		"iDisplayLength":5,//paginacion
+		"order":[[0,"desc"]]//ordenar (columna, orden)
+	}).DataTable();
+}
 function listarArticulos(){
 	tabla=$('#tblarticulos').dataTable({
 		"aProcessing": true,//activamos el procedimiento del datatable

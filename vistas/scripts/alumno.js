@@ -69,7 +69,7 @@ function listar(){
 		],
 		"ajax":
 		{
-			url:'../ajax/alumno.php?op=listar',
+			url:'../ajax/venta.php?op=listardatos',
 			type: "get",
 			dataType : "json",
 			error:function(e){

@@ -1,4 +1,4 @@
-<?php 
+<?php
 //activamos almacenamiento en el buffer
 ob_start();
 session_start();
@@ -6,10 +6,10 @@ if (!isset($_SESSION['nombre'])) {
   header("Location: login.html");
 }else{
 
+
 require 'header.php';
-if ($_SESSION['almacen']==1) {
- ?>
-    <div class="content-wrapper">
+?>
+   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
 
@@ -17,83 +17,53 @@ if ($_SESSION['almacen']==1) {
       <div class="row">
         <div class="col-md-12">
       <div class="box">
-<div class="box-header with-border">
-  <h1 class="box-title">Alumnos<button class="btn btn-success" onclick="mostrarform(true)" id="btnagregar"><i class="fa fa-plus-circle"></i>Agregar</button> <a target="_blank" href="../reportes/rptarticulos.php"><button class="btn btn-info">Reporte</button></a></h1>
+<!--<div class="box-header with-border">
+  <h1 class="box-title">TUTORIA <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i>REGISTRAR</button></h1>
   <div class="box-tools pull-right">
     
   </div>
-</div>
+</div>-->
 <!--box-header-->
 <!--centro-->
-<div class="panel-body table-responsive" id="listadoregistros">
-  <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+<div class="panel-body table-responsive" id="listadoregistros1">
+  <table id="tbllistado1" class="table table-striped table-bordered table-condensed table-hover">
     <thead>
-      <th>Opciones</th>
-       <th>Codigo</th>
-       <th>Nombres </th>
-      <th>Apellidos</th>
-      <th>Rendimiento</th>
-      <th>Escuela</th>
-      <th>Ciclo</th>
-      <th>Estado</th>
+      <th>CODIGO</th>
+      <th>NOMBRE</th>
+      <th>APELLIDO</th>
+      <th>RENDIMIENTO</th>
+      <th>ESCUELA</th>
+      <th>CICLO</th>
     </thead>
     <tbody>
     </tbody>
     <tfoot>
-      <th>Opciones</th>
-       <th>Codigo</th>
-       <th>Nombres </th>
-      <th>Apellidos</th>
-      <th>Rendimiento</th>
-      <th>Escuela</th>
-      <th>Ciclo</th>
-      <th>Estado</th>
+     <th>CODIGO</th>
+      <th>NOMBRE</th>
+      <th>APELLIDO</th>
+      <th>RENDIMIENTO</th>
+      <th>ESCUELA</th>
+      <th>CICLO</th>
     </tfoot>   
   </table>
 </div>
-<div class="panel-body" id="formularioregistros">
+<div class="panel-body txt-center" style="height: 400px;" id="formularioregistros">
   <form action="" name="formulario" id="formulario" method="POST">
-    <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">NOMBRE:</label>
-      <input class="form-control" type="hidden" name="idalumno" id="idalumno">
-      <input class="form-control" type="text" name="nombre" id="nombre" maxlength="100" placeholder="Nombres" required>
-    </div>
-        <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">AELLIDO:</label>
-     
-      <input class="form-control" type="text" name="apellido" id="apellido" maxlength="100" placeholder="Apellidos" required>
-    </div>
-    <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">ESCUELA:</label>
-      <select name="idescuela" id="idescuela" class="form-control selectpicker" data-Live-search="true" required></select>
+     <div class="form-group col-lg-6 col-md-6 col-xs-12">
+      <label for="">CURSO:</label>
+      <select name="curso" id="curso" class="form-control selectpicker" data-Live-search="true" required></select>
     </div>
       <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">CICLO ACADEMICO:</label>
-      <select name="idciclo" id="idciclo" class="form-control selectpicker" data-Live-search="true" required></select>
+      <label for="">TUTOR:</label>
+      <select name="tutor" id="tutor" class="form-control selectpicker" data-Live-search="true" required></select>
     </div>
-      <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">RENDIMIENTO ACADEMICO:</label>
-      <select name="idrendimiento" id="idrendimiento" class="form-control selectpicker" data-Live-search="true" required>
-          <option value="insatisfactorio">INSATISFACTORIO</option>
-           <option value="satisfactorio">SATISFACTORIO</option>
-           <option value="alto">ALTO</option>
-      </select>
+     <div class="form-group col-lg-4 col-md-4 col-xs-12">
+      <label for="">Fecha(*): </label>
+      <input class="form-control" type="date" name="fecha_hora" id="fecha_hora" required>
     </div>
-      
-        
-    <div class="form-group col-lg-6 col-md-6 col-xs-12">
-      <label for="">CODIGO</label>
-      <input class="form-control" type="text" name="codigo" id="codigo" placeholder="codigo del alumno" required>
-      <button class="btn btn-success" type="button" onclick="generarbarcode()">Generar</button>
-      <button class="btn btn-info" type="button" onclick="imprimir()">Imprimir</button>
-      <div id="print">
-        <svg id="barcode"></svg>
-      </div>
-    </div>
-    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>  Guardar</button>
-
-      <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+      <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
     </div>
   </form>
 </div>
@@ -106,18 +76,59 @@ if ($_SESSION['almacen']==1) {
     </section>
     <!-- /.content -->
   </div>
-<?php 
-}else{
- require 'noacceso.php'; 
-}
-require 'footer.php'
- ?>
- <script src="../public/js/JsBarcode.all.min.js"></script>
- <script src="../public/js/jquery.PrintArea.js"></script>
- <script src="scripts/alumno.js"></script>
 
+  <!--Modal-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 65% !important;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Seleccione un Articulo</h4>
+        </div>
+        <div class="modal-body">
+          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+              <th>Opciones</th>
+              <th>Nombre</th>
+              <th>Categoria</th>
+              <th>Código</th>
+              <th>Stock</th>
+              <th>Precio Venta</th>
+              <th>Imagen</th>
+            </thead>
+            <tbody>
+              
+            </tbody>
+            <tfoot>
+              <th>Opciones</th>
+              <th>Nombre</th>
+              <th>Categoria</th>
+              <th>Código</th>
+              <th>Stock</th>
+              <th>Precio Venta</th>
+              <th>Imagen</th>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+<?php 
+
+
+require 'footer.php';
+ ?>
+    <script src="scripts/venta.js"></script>
+ <script src="../public/js/Chart.bundle.min.js"></script>
+ <script src="../public/js/Chart.min.js"></script>
+ 
  <?php 
 }
 
 ob_end_flush();
   ?>
+

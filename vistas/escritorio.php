@@ -6,52 +6,10 @@ if (!isset($_SESSION['nombre'])) {
   header("Location: login.html");
 }else{
 
- 
+
 require 'header.php';
-
-if ($_SESSION['escritorio']==1) {
-
-//  require_once "../modelos/Consultas.php";
-//  $consulta = new Consultas();
-//  $rsptac = $consulta->totalcomprahoy();
-//  $regc=$rsptac->fetch_object();
-//  $totalc=$regc->total_compra;
-//
-//  $rsptav = $consulta->totalventahoy();
-//  $regv=$rsptav->fetch_object();
-//  $totalv=$regv->total_venta;
-//
-//  //obtener valores para cargar al grafico de barras
-//  $compras10 = $consulta->comprasultimos_10dias();
-//  $fechasc='';
-//  $totalesc='';
-//  while ($regfechac=$compras10->fetch_object()) {
-//    $fechasc=$fechasc.'"'.$regfechac->fecha.'",';
-//    $totalesc=$totalesc.$regfechac->total.',';
-//  }
-//
-//
-//  //quitamos la ultima coma
-//  $fechasc=substr($fechasc, 0, -1);
-//  $totalesc=substr($totalesc, 0,-1);
-//
-//
-//
-//    //obtener valores para cargar al grafico de barras
-//  $ventas12 = $consulta->ventasultimos_12meses ();
-//  $fechasv='';
-//  $totalesv='';
-//  while ($regfechav=$ventas12->fetch_object()) {
-//    $fechasv=$fechasv.'"'.$regfechav->fecha.'",';
-//    $totalesv=$totalesv.$regfechav->total.',';
-//  }
-//
-//
-//  //quitamos la ultima coma
-//  $fechasv=substr($fechasv, 0, -1);
-//  $totalesv=substr($totalesv, 0,-1);
- ?>
-    <div class="content-wrapper">
+?>
+   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
 
@@ -60,64 +18,48 @@ if ($_SESSION['escritorio']==1) {
         <div class="col-md-12">
       <div class="box">
 <div class="box-header with-border">
-  <h1 class="box-title">Escritorio</h1>
+  <h1 class="box-title">TUTORIA <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i>REGISTRAR</button></h1>
   <div class="box-tools pull-right">
     
   </div>
 </div>
 <!--box-header-->
 <!--centro-->
-<div class="panel-body">
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-  <div class="small-box bg-aqua">
-    <div class="inner">
-      <h4 style="font-size: 17px;">
-        <strong>15 </strong>
-      </h4>
-      <p>Alumnos en sitema Tutoria</p>
-    </div>
-    <div class="icon">
-      <i class="ion ion-bag"></i>
-    </div>
-    <a href="ingreso.php" class="small-box-footer">ALUMNOS <i class="fa fa-arrow-circle-right"></i></a>
-  </div>
+<div class="panel-body table-responsive" id="listadoregistros">
+  <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+    <thead>
+      <th>TUTOR</th>
+      <th>CURSO</th>
+      <th>FECHA DE REGISTRO</th>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+     <th>TUTOR</th>
+      <th>CURSO</th>
+          <th>FECHA DE REGISTRO</th>
+    </tfoot>   
+  </table>
 </div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-  <div class="small-box bg-green">
-    <div class="inner">
-      <h4 style="font-size: 17px;">
-        <strong>15 </strong>
-      </h4>
-      <p>TUTORES</p>
+<div class="panel-body txt-center" style="height: 400px;" id="formularioregistros">
+  <form action="" name="formulario" id="formulario" method="POST">
+     <div class="form-group col-lg-6 col-md-6 col-xs-12">
+      <label for="">CURSO:</label>
+      <select name="curso" id="curso" class="form-control selectpicker" data-Live-search="true" required></select>
     </div>
-    <div class="icon">
-      <i class="ion ion-bag"></i>
+      <div class="form-group col-lg-6 col-md-6 col-xs-12">
+      <label for="">TUTOR:</label>
+      <select name="tutor" id="tutor" class="form-control selectpicker" data-Live-search="true" required></select>
     </div>
-    <a href="venta.php" class="small-box-footer">PROFESORES TUTORES <i class="fa fa-arrow-circle-right"></i></a>
-  </div>
-</div>
-</div>
-<div class="panel-body">
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      TUORIAS BRINDADAS de los ultimos 10 dias
+     <div class="form-group col-lg-4 col-md-4 col-xs-12">
+      <label for="">Fecha(*): </label>
+      <input class="form-control" type="date" name="fecha_hora" id="fecha_hora" required>
     </div>
-    <div class="box-body">
-      <canvas id="compras" width="400" height="300"></canvas>
+       <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i>  Guardar</button>
+      <button class="btn btn-danger" onclick="cancelarform()" type="button" id="btnCancelar"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
     </div>
-  </div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      TUTORIAS BRINDADAS de los ultimos 12 meses
-    </div>
-    <div class="box-body">
-      <canvas id="ventas" width="400" height="300"></canvas>
-    </div>
-  </div>
-</div>
+  </form>
 </div>
 <!--fin centro-->
       </div>
@@ -128,111 +70,56 @@ if ($_SESSION['escritorio']==1) {
     </section>
     <!-- /.content -->
   </div>
+
+  <!--Modal-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 65% !important;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Seleccione un Articulo</h4>
+        </div>
+        <div class="modal-body">
+          <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+              <th>Opciones</th>
+              <th>Nombre</th>
+              <th>Categoria</th>
+              <th>Código</th>
+              <th>Stock</th>
+              <th>Precio Venta</th>
+              <th>Imagen</th>
+            </thead>
+            <tbody>
+              
+            </tbody>
+            <tfoot>
+              <th>Opciones</th>
+              <th>Nombre</th>
+              <th>Categoria</th>
+              <th>Código</th>
+              <th>Stock</th>
+              <th>Precio Venta</th>
+              <th>Imagen</th>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
 <?php 
-}else{
- require 'noacceso.php'; 
-}
+
 
 require 'footer.php';
  ?>
+    <script src="scripts/venta.js"></script>
  <script src="../public/js/Chart.bundle.min.js"></script>
  <script src="../public/js/Chart.min.js"></script>
- <script>
-var ctx = document.getElementById("compras").getContext('2d');
-var compras = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [<?php echo $fechasc ?>],
-        datasets: [{
-            label: '# Compras en S/. de los últimos 10 dias',
-            data: [<?php echo $totalesc ?>],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                 'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-var ctx = document.getElementById("ventas").getContext('2d');
-var ventas = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [1340],
-        datasets: [{
-            label: '# Ventas en S/. de los últimos 12 meses',
-            data: [123],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                 'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-</script>
+ 
  <?php 
 }
 

@@ -37,9 +37,9 @@ public function mostrar($idarticulo){
 }
 
 //listar registros 
-public function listar(){
+public function listar($id){
 	$sql="SELECT a.id,codigo,a.nombre,apellido,rendimiento,e.nombre as escuela ,a.condicion,c.ciclo as ciclo from alumno a inner join
-escuela e on  a.escuela=e.id inner join cicloac c on a.ciclo=c.id";
+escuela e on  a.escuela=e.id inner join cicloac c on a.ciclo=c.id where a.id='$id'";
 	return ejecutarConsulta($sql);
 }
 
@@ -53,6 +53,14 @@ public function listarActivos(){
 public function listarActivosVenta(){
 	$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo, a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo ORDER BY iddetalle_ingreso DESC LIMIT 0,1) AS precio_venta,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN Categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
 	return ejecutarConsulta($sql);
+}
+public function verificar($login,$clave){
+
+	$sql1="SELECT  a.id,a.codigo , a.nombre,a.apellido,a.rendimiento,e.nombre  as escuela,ca.ciclo from alumno a
+inner join escuela e  on a.escuela=e.id inner join cicloac ca on a.ciclo=ca.id 
+where  a.usuario='admin'and a.clave='admin' and a.condicion='1'";
+	 return ejecutarConsulta($sql1);
+
 }
 }
  ?>

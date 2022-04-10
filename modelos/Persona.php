@@ -35,12 +35,12 @@ public function mostrar($idpersona){
 }
 
 //listar registros
-public function listarp(){
-	$sql="SELECT * FROM persona WHERE tipo_persona='Proveedor'";
+public function listacurso($id){
+	$sql="select * from curso where escuela='$id'";
 	return ejecutarConsulta($sql);
 }
-public function listarc(){
-	$sql="SELECT * FROM persona WHERE tipo_persona='Cliente'";
+public function listartutor(){
+	$sql="SELECT * FROM usuario";
 	return ejecutarConsulta($sql);
 }
 }

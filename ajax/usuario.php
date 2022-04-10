@@ -108,20 +108,21 @@ switch ($_GET["op"]) {
 	$logina=$_POST['logina'];
 	$clavea=$_POST['clavea'];
 
-	//Hash SHA256 en la contraseña
-	$clavehash=hash("SHA256", $clavea);
+//	//Hash SHA256 en la contraseña
+//	$clavehash=hash("SHA256", $clavea);
 	
-	$rspta=$usuario->verificar($logina, $clavehash);
+	$rspta=$usuario->verificar($logina, $clavea);
 
 	$fetch=$rspta->fetch_object();
 	if (isset($fetch)) {
-		# Declaramos la variables de sesion
-		$_SESSION['idusuario']=$fetch->id;
-		$_SESSION['nombre']=$fetch->nombre;
-                $_SESSION['apellido']=$fetch->apellido;
-                $_SESSION['email']=$fetch->email;
-		$_SESSION['imagen']=$fetch->imagen;
-		$_SESSION['login']=$fetch->login;
+	$_SESSION['idalumno'] = $fetch->id;
+             $_SESSION['idescuela'] = $fetch->idescuela;
+            $_SESSION['codigo'] = $fetch->codigo;
+            $_SESSION['nombre'] = $fetch->nombre;
+            $_SESSION['apellido'] = $fetch->apellido;
+            $_SESSION['rendimiento'] = $fetch->rendimiento;
+            $_SESSION['escuela'] = $fetch->escuela;
+            $_SESSION['ciclo'] = $fetch->ciclo;
 
 		//obtenemos los permisos
 		$marcados=$usuario->listarmarcados($fetch->id);
