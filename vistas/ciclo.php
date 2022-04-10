@@ -2,14 +2,11 @@
 //activamos almacenamiento en el buffer
 ob_start();
 session_start();
-if (!isset($_SESSION['nombre'])) {
-  header("Location: login.html");
+if (!isset($_SESSION['nombre1'])) {
+  header("Location: login1.html");
 }else{
 
-
-require 'header.php';
-
-if ($_SESSION['almacen']==1) {
+require 'header_1.php';
 
  ?>
     <div class="content-wrapper">
@@ -74,10 +71,6 @@ if ($_SESSION['almacen']==1) {
     <!-- /.content -->
   </div>
 <?php 
-}else{
- require 'noacceso.php'; 
-}
-
 require 'footer.php';
  ?>
  <script src="scripts/ciclo.js"></script>

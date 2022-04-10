@@ -1,0 +1,92 @@
+body{
+   top:0;
+    left: 0;
+}
+.navbar{
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.navbar h1{
+    margin-left: 85px;
+    margin-top: 10px;
+     font-family:'Mochiy Pop P One', sans-serif ;
+     font-size: 33px;
+}
+
+.padre{
+    position: relative;
+}
+
+.padre img{ 
+    width: 100vw;
+    height: 50vh;
+}
+
+.hijo{
+    position:absolute;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 50vh;
+    background: rgba(44, 62, 80,.3)
+}
+.hijo-1{
+    color: white;
+    text-align: center;
+    
+}
+.hijo-1 h1{
+    font-size:35px;
+    margin-top: 80px;
+    font-family: 'Mochiy Pop P One', sans-serif;
+}
+.bienvenida{
+    text-align: center;
+    margin-top: 14px;
+    margin-bottom: 0px;
+}
+.bienvenida h3{
+    font-size: 35px;
+}
+
+.logeo{
+    justify-content: center;
+     flex-wrap: wrap;   
+}
+.cards{
+    border: none;
+    margin: 10px 50px 0px 50px;
+}
+.card-body{
+    cursor: pointer;
+    color:#1F618D;
+}
+.card-body:hover{
+    color:red;
+}
+.card-body .icono{
+    font-size: 50px;
+  text-align: center;
+}
+.card-body .text{
+    text-align: center;
+    
+}
+.nav-item{
+    color: black;
+
+}
+
+.nav-item a {
+  text-decoration: none;
+}
+.navbar-toggler span{
+    color: black;
+}
+.boton1{
+      background: #2A7EB6; 
+     
+}
+.boton1:hover{
+      background: #1F618D  ;
+}

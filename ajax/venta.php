@@ -82,9 +82,10 @@ switch ($_GET["op"]) {
 
 case 'selecttutor':
 require_once "../modelos/Persona.php";
+   $rendimiento= $_SESSION['rendimiento'] ;
 			$persona = new Persona();
 
-			$rspta = $persona->listartutor();
+			$rspta = $persona->listartutor($rendimiento);
 
 			while ($reg = $rspta->fetch_object()) {
 				echo '<option value='.$reg->id.'>'.$reg->nombre.''.$reg->apellido.'</option>';

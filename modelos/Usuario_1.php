@@ -70,25 +70,18 @@ public function listar(){
 }
 
 //metodo para listar permmisos marcados de un usuario especifico
-public function listarmarcados($login,$clave){
-	
-$sql11="SELECT id,nombre,apellido,email,nivel from usuario where login='$login' and clave='$clave' AND condicion='1'";
-	 return ejecutarConsulta($sql11);
+public function listarmarcados($idusuario){
+	$sql="SELECT * FROM usuario_permiso WHERE idusuario='$idusuario'";
+	return ejecutarConsulta($sql);
 }
-
 
 //funcion que verifica el acceso al sistema
 
 public function verificar($login,$clave){
-    
-$sql1="SELECT  a.id,a.codigo , a.nombre,a.apellido,a.rendimiento,e.nombre  as escuela,ca.ciclo ,a.escuela as idescuela from alumno a
-inner join escuela e  on a.escuela=e.id inner join cicloac ca on a.ciclo=ca.id 
-where  a.usuario='$login'and a.clave='$clave' and a.condicion='1'";
-    return ejecutarConsulta($sql1);}
-    
+
+$sql="SELECT id,nombre,apellido,email,nivel from usuario where login='$login' and clave='$clave' AND condicion='1'";
+	 return ejecutarConsulta($sql);
 }
-
-
-
+}
 
  ?>

@@ -39,8 +39,8 @@ public function listacurso($id){
 	$sql="select * from curso where escuela='$id'";
 	return ejecutarConsulta($sql);
 }
-public function listartutor(){
-	$sql="SELECT * FROM usuario";
+public function listartutor($nivel){
+	$sql="SELECT * FROM usuario where nivel='$nivel'";
 	return ejecutarConsulta($sql);
 }
 }
